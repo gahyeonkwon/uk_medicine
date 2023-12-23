@@ -7,7 +7,7 @@ import medicine.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.awt.*;
+import java.util.*;
 
 
 @Service
@@ -18,5 +18,8 @@ public class RecipeService {
 
     private final RecipeRepository recipeRepository;
 
+    public List<Recipe> findRecipes() {
+        return recipeRepository.findAll();
+    }
 
 }

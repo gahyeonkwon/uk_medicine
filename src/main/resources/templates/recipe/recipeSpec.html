@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+
+    <body>
+
+    <head th:replace="fragments/nav :: nav" />
+
+        <!-- Related items section-->
+        <section class="py-5 bg-light">
+            <div class="container px-4 px-lg-5 mt-5">
+
+                <div class="row">
+                    <div class="col">
+                        <h2 class="fw-bolder mb-4" th:text="${recipeSpecs[0].recipe.name}"></h2>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="제작할 개수를 입력하세요(단위:제)" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">계산하기</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="결과가출력됩니다">
+                    </div>
+                </div>
+
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <div class="col mb-5" th:each="recipeSpec : ${recipeSpecs}">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                           <!-- <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />-->
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder" th:text="${recipeSpec.material.name}"></h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" th:text="|용량 : ${recipeSpec.materialMount}|"> </li>
+                                    </ul>
+                                    <!-- Product price-->
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" href="#">재료 특성 상세보기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div th:replace="fragments/footer :: footer"/>
+    </body>
+</html>

@@ -17,7 +17,6 @@ import java.util.List;
 public class MaterialService {
 
     private final MaterialRepository materialRepository;
-
     public List<Material> findMaterials() {
         return materialRepository.findAll();
     }

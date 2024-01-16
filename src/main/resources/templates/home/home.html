@@ -8,14 +8,15 @@
 
 
 
-    <form th:object="${form}"  th:action="@{/home/searchResult}" method="post">
+    <form th:object="${recipeSearch}"  th:action="@{/home/recipeSearch}">
         <!-- Product section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-12">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="어떤 레시피를 찾으세요?" aria-label="search item " aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" placeholder="어떤 레시피를 찾으세요?" aria-label="search item" aria-describedby="basic-addon2"
+                                th:field="*{recipeName}">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="submit">검색</button>
                             </div>

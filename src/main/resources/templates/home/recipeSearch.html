@@ -6,8 +6,18 @@
 
     <head th:replace="fragments/nav :: nav" />
 
+        <!-- Product section-->
+        <section class="py-5" th:if="${#lists.size(recipes) == 0}">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-12">
+                        검색 결과가 없습니다.
+                    </di>
+                </div>
+            </div>
+        </section>
         <!-- Related items section-->
-        <section class="py-5 bg-light">
+        <section class="py-5 bg-light" th:unless="${#lists.size(recipes) == 0}">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4"> 레시피 목록 </h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -24,12 +34,14 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" th:href="@{/recipe/spec/{recipeId} (recipeId=${recipe.id})}">상세보기</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
+            </div>
             </div>
         </section>
         <div th:replace="fragments/footer :: footer"/>

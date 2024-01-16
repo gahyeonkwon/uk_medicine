@@ -15,10 +15,10 @@ public class Recipe extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipe_id")
-    String id;
+    private Long id;
 
     @Column(name = "recipe_nm")
-    String name;
+    private String name;
 
    /* @OneToMany(mappedBy = "recipe")
     private List<RecipeSpec> recipeSpecList = new ArrayList<>();*/

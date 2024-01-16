@@ -14,7 +14,7 @@ public class RecipeSpec {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "spec_id")
-    private String id;
+    private Long id;
     private double materialMount;
 
     ///////////////////////////////////////////////////////////////////////////

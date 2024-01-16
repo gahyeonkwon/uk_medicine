@@ -24,4 +24,16 @@ public class RecipeSpecRepository {
         return em.createQuery( query
                 , RecipeSpec.class).getResultList();
     }
+
+    public List<RecipeSpec> findById(Long recipeId) {
+
+        String query = "select rs from RecipeSpec rs join fetch rs.recipe" +
+                "  join fetch rs.material where rs.recipe.id = :recipeId " ;
+
+        return em.createQuery( query
+                , RecipeSpec.class)
+                .setParameter("recipeId", recipeId)
+                .getResultList();
+    }
+
 }

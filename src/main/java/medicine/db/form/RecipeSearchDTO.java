@@ -1,10 +1,12 @@
 package medicine.db.form;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
-public class RecipeSearch {
+@NoArgsConstructor
+public class RecipeSearchDTO {
 
     private String recipeName;
 

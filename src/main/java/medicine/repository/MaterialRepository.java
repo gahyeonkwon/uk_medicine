@@ -1,11 +1,10 @@
 package medicine.repository;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import medicine.db.item.Material;
-
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
@@ -18,4 +17,8 @@ public class MaterialRepository {
         return em.createQuery("select i from Material i", Material.class).getResultList();
     }
 
+    public Long insert(Material material) {
+        em.persist(material);
+        return material.getId();
+    }
 }

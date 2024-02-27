@@ -1,12 +1,12 @@
 package medicine.repository;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import medicine.db.item.RecipeSpec;
-import java.util.List;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @Slf4j

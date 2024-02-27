@@ -1,16 +1,20 @@
 package medicine.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import medicine.db.form.WaterMount;
+import medicine.db.form.AddRecipeDTO;
+import medicine.db.form.WaterMountDTO;
+import medicine.db.item.Material;
+import medicine.db.item.Recipe;
 import medicine.db.item.RecipeSpec;
 import medicine.repository.RecipeRepository;
 import medicine.repository.RecipeSpecRepository;
-import java.util.*;
+import medicine.repository.impl.RecipeSpecJPARepository;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
-import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,6 +22,9 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class RecipeSpecService {
     private final RecipeSpecRepository recipeSpecRepository;
+
+    private final RecipeSpecJPARepository recipeSpecJPARepository;
+    private final RecipeRepository recipeRepository;
 
     /**
      * 레시피 상세 조회
@@ -38,7 +45,7 @@ public class RecipeSpecService {
      *   ordermount = 제의 개수 (샘플로 작성할 경우 1첩을 기준)
      *
      * */
-    public double getWaterMount(WaterMount waterMount) {
+    public double getWaterMount(WaterMountDTO waterMount) {
 
         List<RecipeSpec> recipeSpecs = findRecipeSpec(waterMount.getRecipeId());
         int defaultPouch = waterMount.getSetPouch();
@@ -76,4 +83,44 @@ public class RecipeSpecService {
         return materialId == 5L ? true : false;
     }
 
+
+
+    public static List<RecipeSpec> setMaterialsAndName(AddRecipeDTO addRecipeDTO, Recipe recipe) {
+
+        List<RecipeSpec> recipeSpecs = new ArrayList<>();
+
+        List<String> materialIds = addRecipeDTO.getMaterialIds();
+        List<String> materialMounts = addRecipeDTO.getMaterialMounts();
+
+
+        // 재료 ID와 재료 양의 크기가 같은지 확인
+        if (materialIds.size() != materialMounts.size()) {
+            throw new IllegalArgumentException("The sizes of materialIds and materialMounts must be equal");
+        }
+
+        for(int i=0; i < addRecipeDTO.getMaterialIds().size(); i++) {
+            RecipeSpec recipeSpec = RecipeSpec.builder().build();
+            recipeSpec.setRecipe(recipe);
+            recipeSpec.setMaterial(Material.builder().id(Long.parseLong(materialIds.get(i))).build());
+            recipeSpec.setMaterialMount(Double.valueOf(materialMounts.get(i)));
+
+            recipeSpecs.add(recipeSpec);
+        }
+
+
+        return recipeSpecs;
+    }
+
+
+    public void insertRecipe(AddRecipeDTO addRecipeDTO) {
+
+        //insert Recipe
+        Recipe recipe = Recipe.builder().name(addRecipeDTO.getRecipeName()).build();
+        recipeRepository.saveRecipe(recipe);
+
+        //insert recipeSpec
+        List<RecipeSpec> recipeSpecs = setMaterialsAndName(addRecipeDTO, recipe);
+        recipeSpecJPARepository.saveAll(recipeSpecs);
+
+    }
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+
+<body>
+
+<head th:replace="fragments/nav :: nav" />
+
+
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+
+<form th:object="${addRecipe}"  th:action="@{/recipe/insertMaterialMount}" th:method="post" >
+    <!-- Product section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <h2 class="fw-bolder mb-4">레시피 등록</h2>
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-12">
+                    <div class="input-group mb-3">
+                            <div class="col-12 mb-3">
+                                <label for="recipeName" class="form-label">레시피 이름</label>
+                                <input type="text"
+                                       th:field="*{recipeName}"
+                                       th:class="${#fields.hasErrors('recipeName')}? 'form-control fieldError' : 'form-control'"
+                                       class="mb-3"
+                                       placeholder="레시피 이름을 입력해주세요 ( ex. 대금음자)">
+                                <p class="" th:if="${#fields.hasErrors('recipeName')}" th:errors="*{recipeName}">Incorrect date</p>
+
+                            </div>
+                            <div class="col-12 mb-3">
+                                <p class="form-label mb-3">재료 선택</label>
+                                <p class="mb-3" th:if="${#fields.hasErrors('materials')}" th:errors="*{materialIds}">Incorrect date</p>
+                                <ul class="list-group">
+                                    <li class="list-group-item" th:each="material : ${materials}">
+                                    <input type="checkbox"  th:field="*{materialIds}" th:value="${material.id}" autocomplete="off">
+                                    <label class="btn" th:for="${#ids.prev('materialIds')}" th:text="${material.name}"></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-outline-secondary" type="submit">다음으로</button>
+                            </div>`
+
+                        <!--<div class="mb-3">
+                            <label for="comment" class="form-label">재료 설명</label>
+                            <input type="email" class="form-control" th:field="*{comment}" placeholder="재료에대한 설명을 입력해주세요">
+                        </div>-->
+                    </div>
+                    </di>
+                </div>
+            </div>
+    </section>
+</form>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

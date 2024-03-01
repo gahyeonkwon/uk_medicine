@@ -35,12 +35,12 @@ public class MaterialController {
         materials = (List<Material>) materialService.findMaterials();
         model.addAttribute("materials", materials);
 
-        return "/material/materialList";
+        return "material/materialList";
     }
 
     @GetMapping("/material/addMaterial")
     public String addMaterial(@ModelAttribute("addMaterial") AddMaterialDTO addMaterial) {
-        return "/material/addMaterial";
+        return "material/addMaterial";
     }
 
     @PostMapping("/material/insertData")
@@ -50,7 +50,7 @@ public class MaterialController {
         inputDataValidator.validate(addMaterialDTO, bindingResult);
 
         if(bindingResult.hasErrors()) {
-            return "/material/addMaterial";
+            return "material/addMaterial";
         }
 
         materialService.insertData(addMaterialDTO);
@@ -76,7 +76,7 @@ public class MaterialController {
 
         addMaterialDTO.toDto(material);
 
-        return "/material/updateMaterial";
+        return "material/updateMaterial";
     }
 
     @PostMapping("/material/updateData")
@@ -86,7 +86,7 @@ public class MaterialController {
         inputDataValidator.validate(addMaterialDTO, bindingResult);
 
         if(bindingResult.hasErrors()) {
-            return "/material/updateMaterial";
+            return "material/updateMaterial";
         }
 
         materialService.updateData(addMaterialDTO);

@@ -33,7 +33,7 @@ public class HomeController {
 
             model.addAttribute("recipes", recipes);
 
-            return "/home/recipeSearch";
+            return "home/recipeSearch";
         }
 
 

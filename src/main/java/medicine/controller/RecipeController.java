@@ -40,7 +40,7 @@ public class RecipeController {
           recipes = (List<Recipe>) recipeService.findRecipes();
           model.addAttribute("recipes", recipes);
 
-          return "/recipe/recipeList";
+          return "recipe/recipeList";
      }
 
 
@@ -53,7 +53,7 @@ public class RecipeController {
           List<Material> materials = materialService.findMaterials();
           model.addAttribute("materials", materials);
 
-          return "/recipe/selectMaterial";
+          return "recipe/selectMaterial";
      }
 
 
@@ -101,7 +101,7 @@ public class RecipeController {
 
           model.addAttribute("recipeSpecs", recipeSpecs);
 
-          return "/recipe/recipeSpec";
+          return "recipe/recipeSpec";
      }
 
 

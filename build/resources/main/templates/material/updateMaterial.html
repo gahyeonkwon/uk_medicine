@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+
+    <body>
+
+    <head th:replace="fragments/nav :: nav" />
+
+    <style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+    </style>
+
+    <form th:object="${addMaterial}"  th:action="@{/material/updateData}" th:method="post" >
+        <input type="hidden" th:field="*{materialId}" />
+        <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <h2 class="fw-bolder mb-4">재료 수정</h2>
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-12">
+                        <div class="input-group mb-3">
+                            <form class="row">
+                               <div class="col-12 mb-3">
+                                        <label for="materialName" class="form-label">재료 이름</label>
+                                        <input type="text"
+                                               th:field="*{materialName}"
+                                               th:class="${#fields.hasErrors('materialName')}? 'form-control fieldError' : 'form-control'"
+                                               class="mb-3"
+                                        >
+                                        <p class="" th:if="${#fields.hasErrors('materialName')}" th:errors="*{materialName}">Incorrect date</p>
+
+                                </div>
+                               <div class="col-12">
+                                   <button class="btn btn-outline-secondary" type="submit">수정하기</button>
+                               </div>`
+                            </form>
+
+                            <!--<div class="mb-3">
+                                <label for="comment" class="form-label">재료 설명</label>
+                                <input type="email" class="form-control" th:field="*{comment}" placeholder="재료에대한 설명을 입력해주세요">
+                            </div>-->
+                        </div>
+                    </di>
+                </div>
+            </div>
+        </section>
+    </form>
+
+    <div th:replace="fragments/footer :: footer"/>
+    </body>
+</html>

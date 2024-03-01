@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+
+<body>
+
+<head th:replace="fragments/nav :: nav" />
+
+
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+    </style>
+
+<form th:object="${addRecipe}"  th:action="@{/recipe/insertRecipe}" th:method="post" >
+    <input type="hidden" th:field="*{materialIds}"  />
+    <!-- Product section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <h2 class="fw-bolder mb-4">레시피 등록</h2>
+            <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-12">
+                    <div class="input-group mb-3">
+                            <div class="col-12 mb-3">
+                                <label for="recipeName" class="form-label" th:text="${recipeName}"></label>
+                                <input type="text"
+                                       th:field="*{recipeName}"
+                                       class="mb-3 form-control"
+                                       readonly >
+                            </div>
+                            <div class="col-12 mb-3">
+                                <p class="form-label">재료 용량 기재</label>
+                                <ul class="list-group">
+                                    <li class="list-group-item" th:each="material : ${addRecipe.materials}">
+                                        <label for="" class="form-label" th:text="${material.materialName}"></label>
+                                        <input type="text" th:field="*{materialMounts}"  class="mb-3 form-control">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-outline-secondary" type="submit">다음으로</button>
+                            </div>
+                    </div>
+                    </di>
+                </div>
+            </div>
+    </section>
+</form>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

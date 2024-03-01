@@ -107,7 +107,11 @@ public class RecipeController {
 
 
 
-
+     @GetMapping("/recipe/deleteData/{recipeId}")
+     public String deleteData(@PathVariable("recipeId") Long recipeId) {
+          recipeService.deleteData(recipeId);
+          return "redirect:/recipe/list";
+     }
 
 
 }

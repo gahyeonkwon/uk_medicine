@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.*;
+import java.util.ArrayList;
+
 @Entity
 @Getter @Setter
 @Table(name = "medi_recipe")
@@ -21,8 +24,8 @@ public class Recipe extends BaseEntity{
     @Column(name = "recipe_nm")
     private String name;
 
-//    @OneToMany(mappedBy = "recipe")
-//    private List<RecipeSpec> recipeSpecList = new ArrayList<>();
+    @OneToMany(mappedBy = "recipe", orphanRemoval = true)
+    private List<RecipeSpec> recipeSpecList = new ArrayList<>();
 
     @Builder
     public Recipe(Long id, String name) {

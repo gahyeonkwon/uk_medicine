@@ -19,8 +19,7 @@ public class RecipeSpec {
     private Long id;
     private Double materialMount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    //@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 

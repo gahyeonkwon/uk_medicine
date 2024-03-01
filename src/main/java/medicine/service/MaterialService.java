@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import medicine.db.form.AddMaterialDTO;
 import medicine.db.item.Material;
 import medicine.repository.impl.MaterialJPARepository;
-import medicine.repository.MaterialRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +17,10 @@ import java.util.stream.Collectors;
 @Transactional
 public class MaterialService {
 
-    private final MaterialRepository materialRepository;
     private final MaterialJPARepository materialJPARepository;
 
     public List<Material> findMaterials() {
-        return materialRepository.findAll();
+        return materialJPARepository.findAll();
     }
 
 
@@ -30,7 +28,7 @@ public class MaterialService {
         return materialJPARepository.findById(materialId).get();
     }
     public Long insertData(AddMaterialDTO addMaterial) {
-        return materialRepository.insert(addMaterial.toEntity());
+        return materialJPARepository.save(addMaterial.toEntity()).getId();
     }
 
     public void deleteData(Long materialId) {

@@ -20,7 +20,7 @@ public class HomeController {
 
         private final HomeService homeService;
 
-        @GetMapping("/home")
+        @GetMapping("/")
         public String home(@ModelAttribute("recipeSearch") RecipeSearchDTO recipeSearch) {
             return "home/home";
         }

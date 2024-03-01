@@ -8,8 +8,8 @@ import medicine.db.form.WaterMountDTO;
 import medicine.db.item.Material;
 import medicine.db.item.Recipe;
 import medicine.db.item.RecipeSpec;
-import medicine.repository.RecipeRepository;
 import medicine.repository.RecipeSpecRepository;
+import medicine.repository.impl.RecipeJPARepository;
 import medicine.repository.impl.RecipeSpecJPARepository;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +21,9 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class RecipeSpecService {
-    private final RecipeSpecRepository recipeSpecRepository;
-
     private final RecipeSpecJPARepository recipeSpecJPARepository;
-    private final RecipeRepository recipeRepository;
+    private final RecipeSpecRepository recipeSpecRepository;
+    private final RecipeJPARepository recipeJPARepository;
 
     /**
      * 레시피 상세 조회
@@ -72,6 +71,9 @@ public class RecipeSpecService {
 
         log.info(" totalWaterMount ==> " + totalWaterMount);
 
+        // ml -> l 로 변경
+        totalWaterMount = totalWaterMount/1000.0;
+
         return totalWaterMount;
     }
 
@@ -116,7 +118,7 @@ public class RecipeSpecService {
 
         //insert Recipe
         Recipe recipe = Recipe.builder().name(addRecipeDTO.getRecipeName()).build();
-        recipeRepository.saveRecipe(recipe);
+        recipeJPARepository.save(recipe);
 
         //insert recipeSpec
         List<RecipeSpec> recipeSpecs = setMaterialsAndName(addRecipeDTO, recipe);

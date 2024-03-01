@@ -29,14 +29,28 @@ class RecipeServiceTest {
         List<String> materials = of("1","2","3");
 
         AddRecipeDTO addRecipeDTO = new AddRecipeDTO();
-        addRecipeDTO.setRecipeName("보중익기탕");
+        addRecipeDTO.setRecipeName("보중익기탕2");
         //addRecipeDTO.setMaterials(materials);
 
         //when
         //recipeService.insertMaterialsAndRecipeName(addRecipeDTO);
 
         //then
-        assertTrue(recipeJPARepository.existsByName("보중익기탕"));
+        assertTrue(recipeJPARepository.existsByName("보중익기탕2"));
+
+    }
+
+    @Test
+    public void 레시피_삭제() {
+
+        //given
+        Long recipeId = 31L;
+
+        //when
+        recipeService.deleteData(recipeId);
+
+        //then
+        assertTrue(recipeJPARepository.existsById(31L), "삭제 입니다.");
 
     }
 

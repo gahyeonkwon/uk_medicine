@@ -4,8 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import medicine.db.item.Recipe;
-import medicine.repository.RecipeRepository;
-import medicine.repository.RecipeSpecRepository;
+import medicine.repository.impl.RecipeJPARepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,16 +16,13 @@ import java.util.List;
 @Transactional
 public class RecipeService {
 
-    private final RecipeRepository recipeRepository;
-    private final RecipeSpecRepository recipeSpecRepository;
+    private final RecipeJPARepository recipeJPARepository;
 
     public List<Recipe> findRecipes() {
-        return recipeRepository.findAll();
+        return recipeJPARepository.findAll();
     }
-
-
-
-
-
+    public void deleteData(Long recipeId) {
+        recipeJPARepository.deleteById(recipeId);
+    }
 
 }
